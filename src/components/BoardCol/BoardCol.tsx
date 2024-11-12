@@ -42,7 +42,7 @@ const BoardCol = ({
         onClick={() => onCreateStory(status)}
         role="button"
       >
-        New Story
+        + New story
       </div>
     </div>
   )

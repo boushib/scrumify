@@ -32,22 +32,24 @@ const CreateStory = ({ status, storiesLength, onCreate, onClose }: Props) => {
   }
 
   return (
-    <div className="story__wrapper">
-      <div className="story">
-        <CloseIcon onClick={onClose} />
-        <h2 className="story__title">New Story</h2>
-        <hr />
-        <FormInput
-          value={title}
-          onChange={setTitle}
-          placeholder="Story title..."
-        />
-        <Textarea
-          value={description}
-          onChange={setDescription}
-          placeholder="Story description..."
-        />
-        <Button onClick={handleCreateStory}>Create Story</Button>
+    <div className="create-story">
+      <div className="story__wrapper">
+        <div className="story">
+          <CloseIcon onClick={onClose} />
+          <h2 className="story__title">New Story</h2>
+          <hr />
+          <FormInput
+            value={title}
+            onChange={setTitle}
+            placeholder="Story title..."
+          />
+          <Textarea
+            value={description}
+            onChange={setDescription}
+            placeholder="Story description..."
+          />
+          <Button onClick={handleCreateStory}>Create Story</Button>
+        </div>
       </div>
     </div>
   )
