@@ -1,0 +1,103 @@
+.filters
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  gap: 10px
+  padding: 0 28px 14px
+
+.search
+  display: flex
+  align-items: center
+  gap: 8px
+  width: 200px
+  height: 32px
+  padding: 0 10px
+  border: 1px solid var(--border-strong)
+  border-radius: var(--radius-sm)
+  color: var(--text-subtle)
+  background-color: var(--surface)
+  transition: border-color .15s, width .2s
+
+  &:focus-within
+    width: 260px
+    border-color: var(--focus)
+    box-shadow: 0 0 0 1px var(--focus)
+
+  input
+    flex: 1
+    min-width: 0
+    border: 0
+    outline: 0
+    color: var(--text)
+    font: inherit
+    font-size: 13px
+    background: none
+
+.avatars
+  display: flex
+  padding-left: 4px
+
+.avatarFilter
+  margin-left: -6px
+  padding: 0
+  border: 2px solid var(--bg)
+  border-radius: 50%
+  background: var(--bg)
+  cursor: pointer
+  transition: transform .12s
+
+  &:hover
+    z-index: 1
+    transform: translateY(-2px)
+
+  > span
+    display: flex
+
+.avatarFilterActive
+  z-index: 2
+  border-color: var(--primary)
+
+.chip
+  height: 32px
+  padding: 0 12px
+  border: 0
+  border-radius: var(--radius-sm)
+  color: var(--text)
+  font: inherit
+  font-size: 13px
+  font-weight: 500
+  background-color: var(--surface-2)
+  cursor: pointer
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.chipActive
+  color: var(--primary-text)
+  background-color: var(--primary-soft)
+
+  &:hover
+    background-color: var(--primary-soft)
+
+.clear
+  display: inline-flex
+  align-items: center
+  gap: 4px
+  border: 0
+  color: var(--text-muted)
+  font: inherit
+  font-size: 13px
+  background: none
+  cursor: pointer
+
+  &:hover
+    color: var(--text)
+    text-decoration: underline
+
+@media (max-width: 720px)
+  .filters
+    padding-left: 16px
+    padding-right: 16px
+
+  .search, .search:focus-within
+    width: 100%

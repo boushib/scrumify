@@ -16,6 +16,7 @@ import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import IssueCard from "@/components/IssueCard"
+import IssueFilters, { applyFilters, EMPTY_FILTERS, type Filters } from "@/components/IssueFilters"
 import { useOpenIssue } from "@/components/IssueModal"
 import PageHeader, { ProjectNotFound } from "@/components/PageHeader"
 import { useNow } from "@/hooks/useNow"
@@ -25,7 +26,6 @@ import type { Issue } from "@/models"
 import { useStore } from "@/store"
 import { activeSprintOf, byRank, issuesOf } from "@/store/selectors"
 import BoardColumn from "./BoardColumn"
-import BoardFilters, { applyFilters, EMPTY_FILTERS, type Filters } from "./BoardFilters"
 import styles from "./Board.module.sass"
 
 type Columns = Record<string, string[]>
@@ -153,7 +153,7 @@ const BoardView = () => {
         </div>
       ) : (
         <>
-          <BoardFilters issues={sprintIssues} filters={filters} onChange={setFilters} />
+          <IssueFilters issues={sprintIssues} filters={filters} onChange={setFilters} placeholder="Search this board" />
           <DndContext
             sensors={sensors}
             collisionDetection={closestCorners}

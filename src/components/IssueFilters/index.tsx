@@ -8,7 +8,7 @@ import { PRIORITIES } from "@/components/ui/PriorityIcon"
 import Select from "@/components/ui/Select"
 import type { Issue, IssueType, Priority } from "@/models"
 import { CURRENT_USER_ID, useStore } from "@/store"
-import styles from "./Board.module.sass"
+import styles from "./IssueFilters.module.sass"
 
 export interface Filters {
   query: string
@@ -40,9 +40,10 @@ interface Props {
   issues: Issue[]
   filters: Filters
   onChange: (filters: Filters) => void
+  placeholder?: string
 }
 
-const BoardFilters = ({ issues, filters, onChange }: Props) => {
+const IssueFilters = ({ issues, filters, onChange, placeholder = "Search issues" }: Props) => {
   const users = useStore(s => s.users)
   // Only people with work in this sprint get an avatar
   const assigneeIds = new Set(issues.map(i => i.assigneeId))
@@ -62,8 +63,8 @@ const BoardFilters = ({ issues, filters, onChange }: Props) => {
         <Search size={16} />
         <input
           value={filters.query}
-          placeholder="Search this board"
-          aria-label="Search this board"
+          placeholder={placeholder}
+          aria-label={placeholder}
           onChange={e => onChange({ ...filters, query: e.target.value })}
           onKeyDown={e => e.key === "Escape" && onChange({ ...filters, query: "" })}
         />
@@ -132,4 +133,4 @@ const BoardFilters = ({ issues, filters, onChange }: Props) => {
   )
 }
 
-export default BoardFilters
+export default IssueFilters
