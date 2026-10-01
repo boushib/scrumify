@@ -1,6 +1,7 @@
 "use client"
 
 import { Keyboard, Menu as MenuIcon, Moon, Plus, RotateCcw, Search, Sun } from "lucide-react"
+import { flushSync } from "react-dom"
 import Avatar from "@/components/ui/Avatar"
 import Button from "@/components/ui/Button"
 import Popover, { Menu, MenuItem, MenuSeparator, usePopover } from "@/components/ui/Popover"
@@ -18,6 +19,30 @@ const Topbar = () => {
   const setNavOpen = useUi(s => s.setNavOpen)
   const setPaletteOpen = useUi(s => s.setPaletteOpen)
   const setShortcutsOpen = useUi(s => s.setShortcutsOpen)
+
+  // The new theme grows out of the toggle as a circle (View Transitions API);
+  // browsers without it, or with reduced motion, just switch
+  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const next = theme === "dark" ? "light" : "dark"
+    const apply = () => {
+      flushSync(() => setTheme(next))
+      document.documentElement.dataset.theme = next
+    }
+    if (!document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      apply()
+      return
+    }
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = rect.left + rect.width / 2
+    const y = rect.top + rect.height / 2
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+    document.startViewTransition(apply).ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+        { duration: 550, easing: "cubic-bezier(.2, .9, .3, 1)", pseudoElement: "::view-transition-new(root)" }
+      )
+    })
+  }
 
   return (
     <header className={styles.topbar}>
@@ -45,8 +70,12 @@ const Topbar = () => {
         <Button
           variant="subtle"
           aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-          icon={theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          icon={
+            <span key={theme} className={styles.themeIcon}>
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </span>
+          }
+          onClick={toggleTheme}
         />
         <button type="button" className={styles.userButton} aria-label="Account" {...userMenu.triggerProps}>
           <Avatar user={me} size={30} />

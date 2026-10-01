@@ -17,9 +17,11 @@ interface Props {
   project: Project
   onOpen?: (id: string) => void
   overlay?: boolean
+  /** Position in its list, for the staggered entrance */
+  index?: number
 }
 
-export const IssueRowContent = ({ issue, project, onOpen, overlay }: Props) => {
+export const IssueRowContent = ({ issue, project, onOpen, overlay, index = 0 }: Props) => {
   const assignee = useStore(s => s.users.find(u => u.id === issue.assigneeId))
   const epic = useStore(s => (issue.epicId ? s.issues[issue.epicId] : undefined))
   const moveIssue = useStore(s => s.moveIssue)
@@ -28,6 +30,7 @@ export const IssueRowContent = ({ issue, project, onOpen, overlay }: Props) => {
   return (
     <div
       className={classNames(styles.row, overlay && styles.rowOverlay)}
+      style={{ "--delay": `${Math.min(index, 15) * 25}ms` } as React.CSSProperties}
       onClick={() => onOpen?.(issue.id)}
       onKeyDown={e => e.key === "Enter" && e.target === e.currentTarget && onOpen?.(issue.id)}
       tabIndex={-1}

@@ -15,12 +15,14 @@ interface Props {
   issue: Issue
   done?: boolean
   dragging?: boolean
+  /** Position in its list, for the staggered entrance */
+  index?: number
   onOpen?: () => void
 }
 
 const DAY = 24 * 60 * 60 * 1000
 
-const IssueCard = ({ issue, done, dragging, onOpen }: Props) => {
+const IssueCard = ({ issue, done, dragging, index = 0, onOpen }: Props) => {
   const assignee = useStore(s => s.users.find(u => u.id === issue.assigneeId))
   const epic = useStore(s => (issue.epicId ? s.issues[issue.epicId] : undefined))
   const checked = issue.checklist.filter(k => k.done).length
@@ -30,6 +32,7 @@ const IssueCard = ({ issue, done, dragging, onOpen }: Props) => {
   return (
     <article
       className={classNames(styles.card, dragging && styles.dragging, done && styles.done)}
+      style={{ "--delay": `${Math.min(index, 12) * 35}ms` } as React.CSSProperties}
       onClick={onOpen}
       onKeyDown={e => e.key === "Enter" && onOpen?.()}
       tabIndex={0}

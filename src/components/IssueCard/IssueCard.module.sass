@@ -7,17 +7,37 @@
   background-color: var(--surface)
   box-shadow: var(--shadow-sm), 0 0 0 1px var(--border)
   cursor: pointer
-  transition: box-shadow .12s, background-color .12s
+  transition: box-shadow .15s, background-color .15s, transform .15s var(--ease-out)
+  // Cards cascade in; --delay is set per card from its position
+  animation: cardIn .36s var(--ease-out) backwards
+  animation-delay: var(--delay, 0ms)
 
   &:hover
     background-color: var(--surface-2)
     box-shadow: var(--shadow-md), 0 0 0 1px var(--border-strong)
+    transform: translateY(-2px)
 
+// The copy that follows the pointer while dragging
 .dragging
-  opacity: .9
-  transform: rotate(2deg)
+  opacity: .95
+  transform: rotate(2.5deg) scale(1.03)
   box-shadow: var(--shadow-lg), 0 0 0 2px var(--primary)
   cursor: grabbing
+  animation: lift .22s var(--ease-spring)
+  animation-delay: 0ms
+
+  &:hover
+    transform: rotate(2.5deg) scale(1.03)
+
+@keyframes cardIn
+  from
+    opacity: 0
+    transform: translateY(10px) scale(.98)
+
+@keyframes lift
+  from
+    transform: none
+    box-shadow: var(--shadow-sm), 0 0 0 1px var(--border)
 
 .title
   color: var(--text)

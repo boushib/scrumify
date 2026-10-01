@@ -136,7 +136,7 @@ const ReportsView = () => {
           </header>
           {load.length ? (
             <ul className={styles.workload}>
-              {load.map(row => {
+              {load.map((row, index) => {
                 const user = users.find(u => u.id === row.userId)
                 const total = row.todo + row.in_progress + row.done
                 return (
@@ -145,7 +145,10 @@ const ReportsView = () => {
                       <Avatar user={user} size={24} />
                       <span>{user?.name ?? "Unassigned"}</span>
                     </span>
-                    <span className={styles.workloadBar} title={`To do ${row.todo} · In progress ${row.in_progress} · Done ${row.done}`}>
+                    <span
+                      className={styles.workloadBar}
+                      style={{ animationDelay: `${200 + index * 60}ms` }}
+                      title={`To do ${row.todo} · In progress ${row.in_progress} · Done ${row.done}`}>
                       <span style={{ width: `${(row.done / maxLoad) * 100}%`, backgroundColor: "var(--done)" }} />
                       <span style={{ width: `${(row.in_progress / maxLoad) * 100}%`, backgroundColor: "var(--progress)" }} />
                       <span style={{ width: `${(row.todo / maxLoad) * 100}%`, backgroundColor: "var(--todo)" }} />

@@ -86,9 +86,16 @@ export const BurndownChart = ({ points, now }: { points: BurndownPoint[]; now: n
           </g>
         )}
         <line x1={x(0)} y1={y(points[0].ideal)} x2={x(points.length - 1)} y2={y(0)} className={styles.idealLine} />
-        <path d={actualPath} className={styles.actualLine} />
+        <path d={actualPath} pathLength={1} className={styles.actualLine} />
         {actual.map((p, i) => (
-          <circle key={p.day} cx={x(i)} cy={y(p.remaining!)} r={hover === i ? 5 : 3} className={styles.dot} />
+          <circle
+            key={p.day}
+            cx={x(i)}
+            cy={y(p.remaining!)}
+            r={hover === i ? 5 : 3}
+            className={styles.dot}
+            style={{ animationDelay: `${300 + (i / Math.max(1, actual.length - 1)) * 600}ms` }}
+          />
         ))}
         {points.map((p, i) => (
           <rect
@@ -135,13 +142,19 @@ export const VelocityChart = ({ data }: { data: VelocityPoint[] }) => {
           const cx = PAD.left + group * i + group / 2
           return (
             <g key={d.sprint.id}>
-              <rect x={cx - bar - 2} y={y(d.committed)} width={bar} height={plotH + PAD.top - y(d.committed)} rx={3} className={styles.barCommitted}>
+              <rect x={cx - bar - 2} y={y(d.committed)} width={bar} height={plotH + PAD.top - y(d.committed)} rx={3} className={styles.barCommitted} style={{ animationDelay: `${i * 90}ms` }}>
                 <title>{`${d.sprint.name}: ${d.committed} committed`}</title>
               </rect>
-              <rect x={cx + 2} y={y(d.completed)} width={bar} height={plotH + PAD.top - y(d.completed)} rx={3} className={styles.barCompleted}>
+              <rect x={cx + 2} y={y(d.completed)} width={bar} height={plotH + PAD.top - y(d.completed)} rx={3} className={styles.barCompleted} style={{ animationDelay: `${i * 90 + 60}ms` }}>
                 <title>{`${d.sprint.name}: ${d.completed} completed`}</title>
               </rect>
-              <text x={cx + 2 + bar / 2} y={y(d.completed) - 6} textAnchor="middle" className={styles.barValue}>
+              <text
+                x={cx + 2 + bar / 2}
+                y={y(d.completed) - 6}
+                textAnchor="middle"
+                className={styles.barValue}
+                style={{ animationDelay: `${i * 90 + 400}ms` }}
+              >
                 {d.completed}
               </text>
               <text x={cx} y={H - 10} textAnchor="middle" className={styles.axisText}>

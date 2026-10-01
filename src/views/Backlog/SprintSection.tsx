@@ -178,8 +178,8 @@ const SprintSection = (props: Props) => {
       {!collapsed && (
         <SortableContext id={id} items={issues.map(i => i.id)} strategy={verticalListSortingStrategy}>
           <div ref={setNodeRef} className={styles.list}>
-            {issues.map(issue => (
-              <IssueRow key={issue.id} issue={issue} project={project} onOpen={onOpen} />
+            {issues.map((issue, index) => (
+              <IssueRow key={issue.id} issue={issue} project={project} index={index} onOpen={onOpen} />
             ))}
             {issues.length === 0 && (
               <div className={styles.emptyList}>

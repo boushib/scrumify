@@ -25,6 +25,7 @@ const StatusSelect = ({ statuses, value, onChange, size = "md" }: Props) => {
   return (
     <>
       <button
+        key={current.id}
         type="button"
         aria-label={`Status: ${current.name}`}
         className={classNames(

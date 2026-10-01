@@ -1,5 +1,8 @@
 // Design tokens (light is the base, dark overrides)
 \:root
+  // Motion
+  --ease-out: cubic-bezier(.2, .9, .3, 1)
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1)
   --bg: #f7f8fa
   --surface: #ffffff
   --surface-2: #f3f4f6
@@ -107,3 +110,25 @@ ul, ol
   overflow: hidden
   clip: rect(0 0 0 0)
   white-space: nowrap
+
+// Buttons give a little under the finger
+button:not(:disabled):active
+  transform: scale(.97)
+
+button
+  transition: transform .08s ease-out
+
+// The theme toggle animates its own reveal (see Topbar), so the
+// default cross-fade is turned off
+::view-transition-old(root), ::view-transition-new(root)
+  animation: none
+  mix-blend-mode: normal
+
+// Respect the OS "reduce motion" setting everywhere
+@media (prefers-reduced-motion: reduce)
+  *, *::before, *::after
+    animation-duration: .01ms !important
+    animation-iteration-count: 1 !important
+    animation-delay: 0s !important
+    transition-duration: .01ms !important
+    scroll-behavior: auto !important

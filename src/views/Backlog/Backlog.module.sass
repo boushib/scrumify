@@ -21,6 +21,29 @@
   background-color: var(--surface-2)
   transition: background-color .15s
 
+.section
+  animation: sectionIn .4s var(--ease-out) backwards
+
+.section:nth-child(2)
+  animation-delay: 70ms
+
+.section:nth-child(3)
+  animation-delay: 140ms
+
+.section:nth-child(4)
+  animation-delay: 210ms
+
+.section:nth-child(5)
+  animation-delay: 280ms
+
+.section:nth-child(6)
+  animation-delay: 350ms
+
+@keyframes sectionIn
+  from
+    opacity: 0
+    transform: translateY(10px)
+
 .sectionOver
   background-color: var(--surface-hover)
 
@@ -136,7 +159,20 @@
   &:hover
     background-color: var(--surface-hover)
 
+.row
+  transition: background-color .12s
+  animation: rowIn .3s var(--ease-out) backwards
+  animation-delay: var(--delay, 0ms)
+
+@keyframes rowIn
+  from
+    opacity: 0
+    transform: translateX(-6px)
+
 .rowOverlay
+  animation: rowLift .2s var(--ease-spring)
+  animation-delay: 0ms
+  transform: scale(1.02)
   border-radius: var(--radius-sm)
   box-shadow: var(--shadow-md), 0 0 0 1px var(--border)
   cursor: grabbing
@@ -334,3 +370,7 @@
 
   .formRow
     grid-template-columns: 1fr
+
+@keyframes rowLift
+  from
+    transform: none

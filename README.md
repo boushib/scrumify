@@ -41,7 +41,8 @@ Demo: https://scrumify.onrender.com/
 ### Everywhere
 - Command palette (<kbd>⌘</kbd> <kbd>K</kbd> or <kbd>/</kbd>) to search issues across projects, jump to projects and run actions
 - Keyboard shortcuts: <kbd>C</kbd> create issue, <kbd>G</kbd> then <kbd>B</kbd>/<kbd>L</kbd>/<kbd>R</kbd>/<kbd>S</kbd>/<kbd>P</kbd> to navigate, <kbd>?</kbd> for the full list
-- Light and dark themes, applied before first paint so there's no flash
+- Light and dark themes, applied before first paint so there's no flash; switching grows the new theme out of the toggle in a circle
+- Motion throughout: pages fade in, cards and rows cascade in, dragged cards lift and tilt, menus and toasts spring open, and report charts draw themselves. All of it is turned off when the OS asks for reduced motion
 - Toast notifications, with undo where it matters
 - Responsive: a navigation drawer, condensed top bar and swipeable board columns on phones
 - Reset the demo data from the account menu

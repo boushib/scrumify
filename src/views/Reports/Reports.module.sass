@@ -292,3 +292,89 @@
 
   .workload li
     grid-template-columns: 110px minmax(0, 1fr) 28px
+
+// Motion
+
+.stat, .card
+  animation: riseIn .45s var(--ease-out) backwards
+
+.stat:nth-child(2)
+  animation-delay: 50ms
+
+.stat:nth-child(3)
+  animation-delay: 100ms
+
+.stat:nth-child(4)
+  animation-delay: 150ms
+
+.stat:nth-child(5)
+  animation-delay: 200ms
+
+.card:nth-child(2)
+  animation-delay: 240ms
+
+.card:nth-child(3)
+  animation-delay: 330ms
+
+.card:nth-child(4)
+  animation-delay: 420ms
+
+@keyframes riseIn
+  from
+    opacity: 0
+    transform: translateY(12px)
+
+.actualLine
+  stroke-dasharray: 1
+  animation: draw 1s var(--ease-out) .2s backwards
+
+@keyframes draw
+  from
+    stroke-dashoffset: 1
+
+.idealLine
+  animation: fadeIn .6s ease-out backwards
+
+.dot
+  transform-box: fill-box
+  transform-origin: center
+  animation: dotIn .3s var(--ease-spring) backwards
+
+@keyframes dotIn
+  from
+    opacity: 0
+    transform: scale(0)
+
+.barCommitted, .barCompleted
+  transform-box: fill-box
+  transform-origin: bottom
+  animation: grow .6s var(--ease-out) backwards
+
+@keyframes grow
+  from
+    transform: scaleY(0)
+
+.barValue
+  animation: fadeIn .3s ease-out backwards
+
+@keyframes fadeIn
+  from
+    opacity: 0
+
+.donut svg
+  animation: sweep .8s var(--ease-out) .25s backwards
+
+@keyframes sweep
+  from
+    opacity: 0
+    transform: rotate(-120deg) scale(.8)
+
+.workloadBar
+  animation: reveal .7s var(--ease-out) backwards
+
+.progressBar span
+  animation: reveal .8s var(--ease-out) .3s backwards
+
+@keyframes reveal
+  from
+    clip-path: inset(0 100% 0 0)

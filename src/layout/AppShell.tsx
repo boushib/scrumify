@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname } from "next/navigation"
 import { Suspense, useEffect } from "react"
 import CommandPalette from "@/components/CommandPalette"
 import CreateIssueModal from "@/components/CreateIssueModal"
@@ -22,6 +23,7 @@ const Loading = () => (
 /** Everything lives in localStorage, so the app mounts in the browser only */
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const isClient = useIsClient()
+  const pathname = usePathname()
   const theme = useStore(s => s.theme)
   const navOpen = useUi(s => s.navOpen)
   const setNavOpen = useUi(s => s.setNavOpen)
@@ -38,7 +40,12 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       {navOpen && <div className={styles.scrim} onClick={() => setNavOpen(false)} aria-hidden />}
       <div className={styles.main}>
         <Topbar />
-        <main className={styles.content}>{children}</main>
+        <main className={styles.content}>
+          {/* Keyed by route so each page fades in */}
+          <div key={pathname} className={styles.page}>
+            {children}
+          </div>
+        </main>
       </div>
       <Suspense>
         <IssueModalHost />

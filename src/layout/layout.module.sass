@@ -15,6 +15,15 @@
   min-height: 0
   overflow: auto
 
+.page
+  height: 100%
+  animation: pageIn .32s var(--ease-out)
+
+@keyframes pageIn
+  from
+    opacity: 0
+    transform: translateY(6px)
+
 .loading
   height: 100vh
   display: flex
@@ -152,6 +161,12 @@
     background-color: var(--surface-hover)
     color: var(--text)
 
+.navItem svg
+  transition: transform .2s var(--ease-spring)
+
+.navItem:hover svg
+  transform: translateX(2px) scale(1.08)
+
 .navItemActive, .navItemActive:hover
   background-color: var(--primary-soft)
   color: var(--primary-text)
@@ -201,6 +216,15 @@
 
   &:hover
     box-shadow: inset 0 0 0 1px var(--border-strong)
+
+.themeIcon
+  display: flex
+  animation: themeSpin .5s var(--ease-spring)
+
+@keyframes themeSpin
+  from
+    opacity: 0
+    transform: rotate(-90deg) scale(.5)
 
 .topbarTail
   margin-left: auto

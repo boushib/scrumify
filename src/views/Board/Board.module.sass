@@ -29,6 +29,29 @@
   background-color: var(--surface-2)
   transition: background-color .15s, border-color .15s
 
+.column
+  animation: columnIn .4s var(--ease-out) backwards
+
+.column:nth-child(2)
+  animation-delay: 60ms
+
+.column:nth-child(3)
+  animation-delay: 120ms
+
+.column:nth-child(4)
+  animation-delay: 180ms
+
+.column:nth-child(5)
+  animation-delay: 240ms
+
+.column:nth-child(6)
+  animation-delay: 300ms
+
+@keyframes columnIn
+  from
+    opacity: 0
+    transform: translateY(12px)
+
 .columnOver
   background-color: var(--surface-hover)
 

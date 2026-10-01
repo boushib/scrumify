@@ -523,3 +523,20 @@
 
   .side
     padding: 0 16px 24px
+
+// Motion
+
+.checkItem, .comment, .historyItem
+  animation: itemIn .28s var(--ease-out) backwards
+
+.checkItem input:checked
+  animation: check .3s var(--ease-spring)
+
+@keyframes itemIn
+  from
+    opacity: 0
+    transform: translateY(4px)
+
+@keyframes check
+  50%
+    transform: scale(1.3)

@@ -24,7 +24,17 @@ interface Props {
   onOpen: (id: string) => void
 }
 
-const SortableCard = ({ issue, done, onOpen }: { issue: Issue; done: boolean; onOpen: (id: string) => void }) => {
+const SortableCard = ({
+  issue,
+  done,
+  index,
+  onOpen,
+}: {
+  issue: Issue
+  done: boolean
+  index: number
+  onOpen: (id: string) => void
+}) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: issue.id })
   return (
     <div
@@ -34,7 +44,7 @@ const SortableCard = ({ issue, done, onOpen }: { issue: Issue; done: boolean; on
       {...attributes}
       {...listeners}
     >
-      <IssueCard issue={issue} done={done} onOpen={() => onOpen(issue.id)} />
+      <IssueCard issue={issue} done={done} index={index} onOpen={() => onOpen(issue.id)} />
     </div>
   )
 }
@@ -133,8 +143,8 @@ const BoardColumn = ({ project, sprintId, status, issues, total, onOpen }: Props
       {overLimit && <p className={styles.wipWarning}>WIP limit exceeded</p>}
       <SortableContext id={status.id} items={issues.map(i => i.id)} strategy={verticalListSortingStrategy}>
         <div ref={setNodeRef} className={`${styles.cards} scroller`}>
-          {issues.map(issue => (
-            <SortableCard key={issue.id} issue={issue} done={done} onOpen={onOpen} />
+          {issues.map((issue, index) => (
+            <SortableCard key={issue.id} issue={issue} done={done} index={index} onOpen={onOpen} />
           ))}
           {issues.length === 0 && <div className={styles.dropHint}>Drop issues here</div>}
           <QuickAdd project={project} sprintId={sprintId} statusId={status.id} />
