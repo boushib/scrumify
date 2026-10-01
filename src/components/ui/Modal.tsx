@@ -12,10 +12,13 @@ interface Props {
   footer?: React.ReactNode
   width?: number
   className?: string
+  bodyClassName?: string
+  /** Accessible name when there is no visible title */
+  label?: string
   children: React.ReactNode
 }
 
-const Modal = ({ title, onClose, footer, width = 520, className, children }: Props) => {
+const Modal = ({ title, onClose, footer, width = 520, className, bodyClassName, label, children }: Props) => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
     window.addEventListener("keydown", onKey)
@@ -27,6 +30,7 @@ const Modal = ({ title, onClose, footer, width = 520, className, children }: Pro
       <div
         role="dialog"
         aria-modal="true"
+        aria-label={label}
         className={classNames(styles.modal, className)}
         style={{ maxWidth: width }}
         onMouseDown={e => e.stopPropagation()}
@@ -39,7 +43,7 @@ const Modal = ({ title, onClose, footer, width = 520, className, children }: Pro
             </button>
           </header>
         )}
-        <div className={styles.modalBody}>{children}</div>
+        <div className={classNames(styles.modalBody, bodyClassName)}>{children}</div>
         {footer && <footer className={styles.modalFooter}>{footer}</footer>}
       </div>
     </div>,

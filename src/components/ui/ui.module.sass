@@ -297,3 +297,46 @@
 
   &:hover
     color: #fff
+
+// Status lozenge
+.lozenge
+  display: inline-block
+  padding: 2px 6px
+  border-radius: 3px
+  font-size: 11px
+  font-weight: 700
+  letter-spacing: .02em
+  line-height: 16px
+  text-transform: uppercase
+  white-space: nowrap
+
+.lozenge_todo
+  color: var(--text-muted)
+  background-color: var(--surface-active)
+
+.lozenge_in_progress
+  color: var(--progress)
+  background-color: var(--progress-soft)
+
+.lozenge_done
+  color: var(--done)
+  background-color: var(--done-soft)
+
+.statusButton
+  composes: lozenge
+  display: inline-flex
+  align-items: center
+  gap: 6px
+  height: 32px
+  padding: 0 10px 0 12px
+  border-radius: var(--radius-sm)
+  font-size: 12px
+  cursor: pointer
+
+  &:hover
+    filter: brightness(1.08)
+
+.statusButtonSmall
+  height: 24px
+  padding: 0 6px 0 8px
+  font-size: 11px

@@ -59,6 +59,8 @@ interface Actions {
   createIssue: (input: NewIssue) => Issue
   updateIssue: (id: string, patch: IssuePatch) => void
   deleteIssue: (id: string) => void
+  /** Put a deleted issue back (undo) */
+  restoreIssue: (issue: Issue) => void
   /** Move to a board column, placed between two neighbours */
   moveIssue: (id: string, statusId: string, beforeId?: string, afterId?: string) => void
   /** Move into a sprint (or the backlog with null), placed between two neighbours */
@@ -188,15 +190,33 @@ export const useStore = create<Data & Actions>()(
             return { issues }
           }),
 
+        restoreIssue: issue => set(state => ({ issues: { ...state.issues, [issue.id]: issue } })),
+
         moveIssue: (id, statusId, beforeId, afterId) => {
           const { issues } = get()
-          const rank = rankBetween(beforeId ? issues[beforeId]?.rank : undefined, afterId ? issues[afterId]?.rank : undefined)
+          // Without neighbours (status picked from a menu) the issue keeps its place
+          const rank =
+            beforeId || afterId
+              ? rankBetween(beforeId ? issues[beforeId]?.rank : undefined, afterId ? issues[afterId]?.rank : undefined)
+              : (issues[id]?.rank ?? 0)
           patchIssue(id, issue => ({ ...applyPatch(issue, { statusId }), rank, updatedAt: Date.now() }))
         },
 
         planIssue: (id, sprintId, beforeId, afterId) => {
           const { issues } = get()
-          const rank = rankBetween(beforeId ? issues[beforeId]?.rank : undefined, afterId ? issues[afterId]?.rank : undefined)
+          const issue = issues[id]
+          if (!issue) return
+          // Without neighbours (sprint picked from a menu) the issue goes to the end
+          const last = Math.max(
+            0,
+            ...Object.values(issues)
+              .filter(i => i.projectId === issue.projectId && i.sprintId === sprintId && i.id !== id)
+              .map(i => i.rank)
+          )
+          const rank =
+            beforeId || afterId
+              ? rankBetween(beforeId ? issues[beforeId]?.rank : undefined, afterId ? issues[afterId]?.rank : undefined)
+              : last + 1000
           patchIssue(id, issue => ({ ...applyPatch(issue, { sprintId }), rank, updatedAt: Date.now() }))
         },
 

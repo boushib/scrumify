@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
+import IssueModalHost from "@/components/IssueModal"
 import Toasts from "@/components/ui/Toasts"
 import { useIsClient } from "@/hooks/useIsClient"
 import { useStore } from "@/store"
@@ -32,6 +33,9 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
         <Topbar />
         <main className={styles.content}>{children}</main>
       </div>
+      <Suspense>
+        <IssueModalHost />
+      </Suspense>
       <Toasts />
     </div>
   )

@@ -1,0 +1,517 @@
+.body
+  padding: 0
+
+.notFound
+  color: var(--text-muted)
+
+.layout
+  display: grid
+  grid-template-columns: minmax(0, 1fr) 340px
+  grid-template-rows: auto minmax(0, 1fr)
+  height: min(820px, 84vh)
+
+// Header
+
+.header
+  grid-column: 1 / -1
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 12px
+  padding: 12px 12px 4px 28px
+
+.crumbs
+  display: flex
+  align-items: center
+  gap: 6px
+  min-width: 0
+  color: var(--text-subtle)
+  font-size: 13px
+
+.crumbProject, .crumbKey, .crumbLink
+  display: inline-flex
+  align-items: center
+  gap: 6px
+  color: var(--text-muted)
+  white-space: nowrap
+
+.crumbLink
+  &:hover
+    color: var(--text)
+    text-decoration: underline
+
+.projectIcon
+  display: grid
+  place-items: center
+  width: 18px
+  height: 18px
+  border-radius: 4px
+  font-size: 11px
+
+.headerActions
+  display: flex
+  gap: 2px
+
+// Main column
+
+.main
+  overflow-y: auto
+  padding: 4px 28px 28px
+
+.title
+  display: block
+  width: 100%
+  margin: 0 -8px 8px
+  padding: 4px 8px
+  border: 0
+  border-radius: var(--radius-sm)
+  outline: 0
+  resize: none
+  overflow: hidden
+  color: var(--text)
+  font-family: var(--font-poppins), var(--font-inter), sans-serif
+  font-size: 24px
+  font-weight: 600
+  line-height: 1.3
+  background: none
+
+  &:hover
+    background-color: var(--surface-hover)
+
+  &:focus
+    background-color: var(--surface)
+    box-shadow: 0 0 0 2px var(--focus)
+
+.section
+  margin-top: 24px
+
+.sectionHeader
+  display: flex
+  align-items: baseline
+  justify-content: space-between
+
+.sectionTitle
+  margin-bottom: 8px
+  color: var(--text)
+  font-size: 14px
+  font-weight: 600
+
+.muted
+  color: var(--text-subtle)
+  font-size: 13px
+
+.description
+  display: block
+  width: 100%
+  min-height: 40px
+  margin: 0 -8px
+  padding: 8px
+  border-radius: var(--radius-sm)
+  color: var(--text)
+  font-size: 14px
+  line-height: 1.6
+  text-align: left
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.descriptionEmpty
+  color: var(--text-subtle)
+
+.editor, .composer
+  flex: 1
+
+  textarea
+    width: 100%
+    padding: 10px 12px
+    border: 1px solid var(--border-strong)
+    border-radius: var(--radius-sm)
+    outline: 0
+    resize: vertical
+    color: var(--text)
+    font: inherit
+    font-size: 14px
+    line-height: 1.5
+    background-color: var(--surface)
+
+    &:focus
+      border-color: var(--focus)
+      box-shadow: 0 0 0 1px var(--focus)
+
+.editorActions
+  display: flex
+  align-items: center
+  gap: 6px
+  margin-top: 8px
+
+.editorHint
+  margin-left: auto
+  color: var(--text-subtle)
+  font-size: 12px
+
+// Child issues
+
+.children
+  list-style: none
+  border: 1px solid var(--border)
+  border-radius: var(--radius-sm)
+
+  li + li
+    border-top: 1px solid var(--border)
+
+  button
+    display: flex
+    align-items: center
+    gap: 8px
+    width: 100%
+    padding: 8px 10px
+    font-size: 13px
+    text-align: left
+
+    &:hover
+      background-color: var(--surface-hover)
+
+.childKey
+  color: var(--text-muted)
+  font-weight: 500
+
+.childTitle
+  flex: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.childStatus
+  color: var(--text-subtle)
+  font-size: 12px
+
+// Checklist
+
+.progress
+  height: 6px
+  margin-bottom: 8px
+  border-radius: 3px
+  background-color: var(--surface-active)
+  overflow: hidden
+
+  span
+    display: block
+    height: 100%
+    border-radius: inherit
+    background-color: var(--done)
+    transition: width .2s
+
+.checklist
+  list-style: none
+
+.checkItem
+  display: flex
+  align-items: center
+  gap: 8px
+  margin: 0 -8px
+  padding: 4px 8px
+  border-radius: var(--radius-sm)
+
+  label
+    flex: 1
+    display: flex
+    align-items: center
+    gap: 10px
+    font-size: 14px
+    cursor: pointer
+
+  input
+    width: 16px
+    height: 16px
+    accent-color: var(--primary)
+
+  > button
+    display: flex
+    padding: 2px
+    border-radius: 4px
+    color: var(--text-subtle)
+    opacity: 0
+
+    &:hover
+      color: var(--danger)
+
+  &:hover
+    background-color: var(--surface-hover)
+
+    > button
+      opacity: 1
+
+.checkItemDone label span
+  color: var(--text-subtle)
+  text-decoration: line-through
+
+.checkForm input
+  width: 100%
+  margin-top: 4px
+  padding: 6px 10px
+  border: 1px solid var(--focus)
+  border-radius: var(--radius-sm)
+  outline: 0
+  color: var(--text)
+  font: inherit
+  font-size: 14px
+  background-color: var(--surface)
+
+.addButton
+  display: inline-flex
+  align-items: center
+  gap: 6px
+  margin-top: 4px
+  padding: 6px 8px
+  border-radius: var(--radius-sm)
+  color: var(--text-muted)
+  font-size: 13px
+  font-weight: 500
+
+  &:hover
+    color: var(--text)
+    background-color: var(--surface-hover)
+
+// Activity tabs
+
+.tabs
+  display: flex
+  align-items: baseline
+  gap: 4px
+  margin-bottom: 12px
+
+  .sectionTitle
+    margin-right: 8px
+
+.tab
+  padding: 4px 10px
+  border-radius: var(--radius-sm)
+  color: var(--text-muted)
+  font-size: 13px
+  font-weight: 500
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.tabActive
+  color: var(--primary-text)
+  background-color: var(--primary-soft)
+
+  &:hover
+    background-color: var(--primary-soft)
+
+// Comments
+
+.newComment
+  display: flex
+  gap: 12px
+
+.comments
+  list-style: none
+  margin-top: 16px
+
+.comment
+  display: flex
+  gap: 12px
+  padding: 10px 0
+
+.commentBody
+  flex: 1
+  min-width: 0
+
+.commentMeta
+  display: flex
+  align-items: baseline
+  gap: 8px
+  font-size: 13px
+
+  time
+    color: var(--text-subtle)
+    font-size: 12px
+
+.commentText
+  margin-top: 4px
+
+.commentActions
+  display: flex
+  gap: 10px
+  margin-top: 4px
+  color: var(--text-subtle)
+  font-size: 12px
+
+  button
+    color: var(--text-muted)
+    font-weight: 600
+
+    &:hover
+      color: var(--text)
+      text-decoration: underline
+
+  .danger
+    color: var(--danger)
+
+// History
+
+.history
+  list-style: none
+
+.historyItem
+  display: flex
+  gap: 12px
+  padding: 8px 0
+  font-size: 13px
+  line-height: 1.5
+
+.change
+  display: flex
+  align-items: center
+  gap: 8px
+  margin-top: 2px
+  color: var(--text-muted)
+
+  span
+    padding: 0 6px
+    border-radius: 3px
+    background-color: var(--surface-2)
+
+// Side panel
+
+.side
+  overflow-y: auto
+  padding: 4px 24px 28px 8px
+
+.details
+  margin-top: 16px
+  border: 1px solid var(--border)
+  border-radius: var(--radius)
+
+.detailsTitle
+  padding: 12px 14px
+  border-bottom: 1px solid var(--border)
+  font-size: 14px
+  font-weight: 600
+
+.field
+  display: grid
+  grid-template-columns: 104px minmax(0, 1fr)
+  align-items: start
+  gap: 8px
+  padding: 4px 14px
+
+  &:first-of-type
+    padding-top: 10px
+
+.fieldLabel
+  padding-top: 6px
+  color: var(--text-muted)
+  font-size: 13px
+  font-weight: 500
+
+.fieldValue
+  min-width: 0
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+
+  > button
+    max-width: 100%
+
+.static
+  display: flex
+  align-items: center
+  gap: 8px
+  height: 28px
+  padding: 0 8px
+  font-size: 14px
+
+.assignMe
+  padding: 0 8px 4px
+  color: var(--primary)
+  font-size: 12px
+  font-weight: 600
+
+  &:hover
+    text-decoration: underline
+
+.labels
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  gap: 4px
+  width: 100%
+  min-height: 28px
+  padding: 2px 4px
+
+.labelChip
+  display: inline-flex
+  align-items: center
+  gap: 2px
+  padding: 1px 4px 1px 8px
+  border-radius: 3px
+  font-size: 12px
+  background-color: var(--surface-active)
+
+  button
+    display: flex
+    padding: 1px
+    border-radius: 2px
+    color: var(--text-subtle)
+
+    &:hover
+      color: var(--text)
+
+.labelInput
+  flex: 1
+  min-width: 64px
+  height: 24px
+  padding: 0 4px
+  border: 0
+  border-radius: 3px
+  outline: 0
+  color: var(--text)
+  font: inherit
+  font-size: 13px
+  background: none
+
+  &:focus
+    box-shadow: 0 0 0 1px var(--focus)
+
+.dateInput
+  height: 28px
+  padding: 0 8px
+  border: 0
+  border-radius: var(--radius-sm)
+  color: var(--text)
+  font: inherit
+  font-size: 14px
+  background: none
+  color-scheme: light dark
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.timestamps
+  margin-top: 8px
+  padding: 10px 14px 12px
+  border-top: 1px solid var(--border)
+  color: var(--text-subtle)
+  font-size: 12px
+
+  div
+    display: flex
+    gap: 6px
+    line-height: 1.8
+
+@media (max-width: 860px)
+  .layout
+    display: block
+    height: auto
+
+  .main
+    padding: 4px 16px 16px
+
+  .header
+    padding-left: 16px
+
+  .side
+    padding: 0 16px 24px

@@ -14,9 +14,9 @@ import {
 } from "@dnd-kit/core"
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
 import Link from "next/link"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useMemo, useState } from "react"
 import IssueCard from "@/components/IssueCard"
+import { useOpenIssue } from "@/components/IssueModal"
 import PageHeader, { ProjectNotFound } from "@/components/PageHeader"
 import { useNow } from "@/hooks/useNow"
 import { useProject } from "@/hooks/useProject"
@@ -37,9 +37,7 @@ const describeDaysLeft = (days: number) =>
 
 const BoardView = () => {
   const project = useProject()
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const openIssue = useOpenIssue()
   const sprints = useStore(s => s.sprints)
   const allIssues = useStore(s => s.issues)
   const moveIssue = useStore(s => s.moveIssue)
@@ -80,12 +78,6 @@ const BoardView = () => {
   const columns = dragColumns ?? baseColumns
   const findColumn = (id: string) =>
     id in columns ? id : Object.keys(columns).find(key => columns[key].includes(id))
-
-  const openIssue = (id: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set("issue", id)
-    router.push(`${pathname}?${params}`, { scroll: false })
-  }
 
   const resetDrag = () => {
     setActiveId(null)
