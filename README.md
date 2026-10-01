@@ -1,4 +1,36 @@
-# Scrumify
+<div align="center">
+
+# 🚀 Scrumify
+
+**A Jira-style Scrum board: sprints, backlog, issues and reports, in the browser.**
+
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Sass](https://img.shields.io/badge/Sass-CSS%20modules-CC6699?logo=sass&logoColor=white)](https://sass-lang.com)
+[![Zustand](https://img.shields.io/badge/state-zustand-443E38)](https://zustand.docs.pmnd.rs)
+[![dnd kit](https://img.shields.io/badge/drag%20%26%20drop-dnd%20kit-4F46E5)](https://dndkit.com)
+[![License: MIT](https://img.shields.io/badge/license-MIT-22C55E)](LICENSE)
+<br />
+[![Last commit](https://img.shields.io/github/last-commit/boushib/scrumify)](https://github.com/boushib/scrumify/commits/main)
+[![Top language](https://img.shields.io/github/languages/top/boushib/scrumify)](https://github.com/boushib/scrumify)
+[![Repo size](https://img.shields.io/github/repo-size/boushib/scrumify)](https://github.com/boushib/scrumify)
+
+<img src="docs/screenshots/board.png" alt="Scrum board for the active sprint" width="900" />
+
+</div>
+
+## Screenshots
+
+**Issue details:** Markdown description, checklist, comments and every field editable in place
+
+<img src="docs/screenshots/issue.png" alt="Issue detail dialog" width="100%" />
+
+**Reports:** burndown, velocity, status and workload
+
+<img src="docs/screenshots/reports.png" alt="Reports with burndown and velocity charts" width="100%" />
+
+## About
 
 _Scrumify_ is a Scrum project management tool in the spirit of _Jira_, built with **Next.js 16** (App Router), **React 19** and **TypeScript**. It started as a job interview exercise and has grown into a full sprint planning app.
 
@@ -91,3 +123,7 @@ src/
 - Saved filters and a JQL-like search syntax
 - Attachments and @mentions in comments
 - A real backend with accounts, shared workspaces and live updates
+
+## License
+
+[MIT](LICENSE) © El Hassane Boushib
