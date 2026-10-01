@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Navbar from "@/components/Navbar/"
-import Board from "@/pages/Board"
+import Board from "@/views/Board"
 
 const App = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "dark")

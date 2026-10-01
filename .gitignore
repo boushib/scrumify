@@ -2,3 +2,10 @@ node_modules
 build
 .DS_Store
 .env
+
+# next.js
+/.next/
+/.next-*/
+next-env.d.ts
+*.tsbuildinfo
+*.d.ts
