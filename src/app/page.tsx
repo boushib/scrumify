@@ -1,5 +1,5 @@
-import ClientApp from "./ClientApp"
+import { redirect } from "next/navigation"
 
-const Home = () => <ClientApp />
+const Home = () => redirect("/projects/SCR/board")
 
 export default Home

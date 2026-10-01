@@ -1,0 +1,98 @@
+.card
+  display: flex
+  flex-direction: column
+  gap: 8px
+  padding: 10px 12px
+  border-radius: 6px
+  background-color: var(--surface)
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--border)
+  cursor: pointer
+  transition: box-shadow .12s, background-color .12s
+
+  &:hover
+    background-color: var(--surface-2)
+    box-shadow: var(--shadow-md), 0 0 0 1px var(--border-strong)
+
+.dragging
+  opacity: .9
+  transform: rotate(2deg)
+  box-shadow: var(--shadow-lg), 0 0 0 2px var(--primary)
+  cursor: grabbing
+
+.title
+  color: var(--text)
+  font-size: 14px
+  line-height: 1.4
+  word-break: break-word
+
+.done .title
+  color: var(--text-muted)
+
+.chips
+  display: flex
+  flex-wrap: wrap
+  gap: 4px
+
+.epic
+  padding: 1px 6px
+  border-radius: 3px
+  background-color: rgba(144, 78, 226, .15)
+  color: #a277f0
+  font-size: 11px
+  font-weight: 600
+  max-width: 160px
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.label
+  padding: 1px 6px
+  border-radius: 3px
+  background-color: var(--surface-active)
+  color: var(--text-muted)
+  font-size: 11px
+  font-weight: 500
+
+.footer
+  display: flex
+  align-items: center
+  gap: 6px
+
+.key
+  color: var(--text-muted)
+  font-size: 12px
+  font-weight: 600
+
+.keyDone
+  text-decoration: line-through
+
+.meta
+  margin-left: auto
+  display: flex
+  align-items: center
+  gap: 6px
+
+.badge
+  display: inline-flex
+  align-items: center
+  gap: 3px
+  color: var(--text-subtle)
+  font-size: 11px
+
+.badgeWarn
+  padding: 1px 4px
+  border-radius: 3px
+  background-color: var(--danger-soft)
+  color: var(--danger)
+
+.points
+  min-width: 20px
+  height: 18px
+  padding: 0 5px
+  border-radius: 9px
+  background-color: var(--surface-active)
+  color: var(--text)
+  font-size: 11px
+  font-weight: 600
+  line-height: 18px
+  text-align: center

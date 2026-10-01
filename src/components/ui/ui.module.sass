@@ -1,0 +1,299 @@
+// Avatar
+.avatar
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  flex-shrink: 0
+  border-radius: 50%
+  color: #fff
+  font-weight: 600
+  letter-spacing: .02em
+  user-select: none
+
+.avatarEmpty
+  border: 1.5px dashed var(--border-strong)
+  background-color: transparent
+
+// Issue type
+.typeIcon
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  flex-shrink: 0
+  border-radius: 3px
+
+// Button
+.button
+  height: 32px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: 6px
+  padding: 0 12px
+  border-radius: var(--radius-sm)
+  font-weight: 500
+  white-space: nowrap
+  transition: background-color .12s, color .12s, box-shadow .12s
+
+  &:disabled
+    opacity: .5
+    cursor: not-allowed
+
+.small
+  height: 28px
+  padding: 0 8px
+  font-size: 13px
+
+.iconOnly
+  width: 32px
+  padding: 0
+
+  &.small
+    width: 28px
+
+.primary
+  background-color: var(--primary)
+  color: #fff
+
+  &:hover:not(:disabled)
+    background-color: var(--primary-hover)
+
+.secondary
+  background-color: var(--surface-2)
+  color: var(--text)
+  box-shadow: inset 0 0 0 1px var(--border)
+
+  &:hover:not(:disabled)
+    background-color: var(--surface-hover)
+
+.subtle
+  color: var(--text-muted)
+
+  &:hover:not(:disabled)
+    background-color: var(--surface-hover)
+    color: var(--text)
+
+.danger
+  background-color: var(--danger)
+  color: #fff
+
+  &:hover:not(:disabled)
+    filter: brightness(.92)
+
+// Modal
+.backdrop
+  position: fixed
+  inset: 0
+  z-index: 100
+  display: flex
+  align-items: flex-start
+  justify-content: center
+  padding: 8vh 16px 16px
+  background-color: rgba(9, 13, 22, .6)
+  backdrop-filter: blur(2px)
+  animation: fade .15s ease-out
+  overflow-y: auto
+
+.modal
+  width: 100%
+  display: flex
+  flex-direction: column
+  border-radius: 10px
+  background-color: var(--surface)
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border)
+  animation: rise .18s cubic-bezier(.2, .9, .3, 1.1)
+
+.modalHeader
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 18px 20px 6px
+
+  h2
+    font-size: 18px
+    font-weight: 600
+
+.modalClose
+  display: flex
+  padding: 6px
+  border-radius: var(--radius-sm)
+  color: var(--text-muted)
+
+  &:hover
+    background-color: var(--surface-hover)
+    color: var(--text)
+
+.modalBody
+  padding: 12px 20px 20px
+
+.modalFooter
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  gap: 8px
+  padding: 14px 20px
+  border-top: 1px solid var(--border)
+
+@keyframes fade
+  from
+    opacity: 0
+
+@keyframes rise
+  from
+    opacity: 0
+    transform: translateY(8px) scale(.98)
+
+// Popover + menu
+.popover
+  position: fixed
+  z-index: 200
+  animation: fade .1s ease-out
+
+.menu
+  min-width: 180px
+  max-height: 360px
+  overflow-y: auto
+  padding: 6px
+  border-radius: var(--radius)
+  background-color: var(--surface)
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--border)
+
+.menuItem
+  width: 100%
+  display: flex
+  align-items: center
+  gap: 8px
+  padding: 7px 8px
+  border-radius: var(--radius-sm)
+  color: var(--text)
+  text-align: left
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.menuItemSelected
+  background-color: var(--primary-soft)
+
+  &:hover
+    background-color: var(--primary-soft)
+
+.menuItemDanger
+  color: var(--danger)
+
+.menuIcon
+  display: flex
+  flex-shrink: 0
+
+.menuLabel
+  flex: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.menuHint
+  color: var(--text-subtle)
+  font-size: 12px
+
+.menuCheck
+  color: var(--primary)
+
+.menuSeparator
+  height: 1px
+  margin: 6px 4px
+  background-color: var(--border)
+
+// Select
+.select
+  height: 32px
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  padding: 0 8px 0 10px
+  border-radius: var(--radius-sm)
+  background-color: var(--surface-2)
+  box-shadow: inset 0 0 0 1px var(--border)
+  color: var(--text)
+  text-align: left
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.selectCompact
+  height: 28px
+  background: none
+  box-shadow: none
+
+.selectLabel
+  flex: 1
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.selectChevron
+  color: var(--text-subtle)
+
+.selectMenu
+  min-width: 200px
+
+// Toasts
+.toasts
+  position: fixed
+  left: 50%
+  bottom: 24px
+  z-index: 300
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 8px
+  transform: translateX(-50%)
+  pointer-events: none
+
+.toast
+  min-width: 280px
+  max-width: min(480px, calc(100vw - 32px))
+  display: flex
+  align-items: center
+  gap: 10px
+  padding: 10px 10px 10px 14px
+  border-radius: var(--radius)
+  background-color: #1f2533
+  color: #fff
+  box-shadow: var(--shadow-lg)
+  pointer-events: auto
+  animation: rise .2s ease-out
+
+  [data-theme="dark"] &
+    background-color: #2b3245
+
+.toastIcon
+  flex-shrink: 0
+
+.toast_success .toastIcon
+  color: #4bce97
+
+.toast_danger .toastIcon
+  color: #f87168
+
+.toast_info .toastIcon
+  color: #85b8ff
+
+.toastMessage
+  flex: 1
+
+.toastAction
+  padding: 4px 8px
+  border-radius: var(--radius-sm)
+  color: #ffb39b
+  font-weight: 600
+
+  &:hover
+    background-color: rgba(255, 255, 255, .08)
+
+.toastClose
+  display: flex
+  padding: 4px
+  border-radius: var(--radius-sm)
+  color: rgba(255, 255, 255, .6)
+
+  &:hover
+    color: #fff
