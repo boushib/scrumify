@@ -247,6 +247,11 @@ const DangerZone = ({ project }: { project: Project }) => {
   const projectCount = useStore(s => s.projects.length)
   const [confirming, setConfirming] = useState(false)
   const [typed, setTyped] = useState("")
+  const remove = () => {
+    router.push("/projects")
+    deleteProject(project.id)
+    toast(`${project.name} deleted`, "info")
+  }
 
   return (
     <section className={`${styles.card} ${styles.danger}`}>
@@ -264,6 +269,7 @@ const DangerZone = ({ project }: { project: Project }) => {
       </Button>
       {confirming && (
         <Modal
+          onSubmit={() => typed === project.key && remove()}
           title={`Delete ${project.name}?`}
           onClose={() => setConfirming(false)}
           width={460}
@@ -272,15 +278,7 @@ const DangerZone = ({ project }: { project: Project }) => {
               <Button variant="subtle" onClick={() => setConfirming(false)}>
                 Cancel
               </Button>
-              <Button
-                variant="danger"
-                disabled={typed !== project.key}
-                onClick={() => {
-                  router.push("/projects")
-                  deleteProject(project.id)
-                  toast(`${project.name} deleted`, "info")
-                }}
-              >
+              <Button type="submit" variant="danger" disabled={typed !== project.key}>
                 Delete project
               </Button>
             </>

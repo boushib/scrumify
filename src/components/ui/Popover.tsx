@@ -21,6 +21,7 @@ export const usePopover = () => {
   }, [])
   const triggerProps = {
     "aria-expanded": anchor !== null,
+    "data-popover-trigger": "",
     onClick: (e: React.MouseEvent<HTMLElement>) => {
       if (anchor) {
         close()
@@ -51,19 +52,25 @@ const Popover = ({ anchor, onClose, align = "start", placement = "bottom", class
   const ref = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    // Capture phase, so clicks still count inside dialogs that stop mousedown from bubbling.
+    // The open trigger is skipped: its own click toggles the popover closed.
     const onDown = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose()
+      const target = e.target as Element
+      if (ref.current?.contains(target) || target.closest?.('[data-popover-trigger][aria-expanded="true"]')) return
+      onClose()
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        // Close only the popover, not the dialog underneath
         e.stopPropagation()
+        e.preventDefault()
         onClose()
       }
     }
-    document.addEventListener("mousedown", onDown)
+    document.addEventListener("pointerdown", onDown, true)
     window.addEventListener("keydown", onKey, true)
     return () => {
-      document.removeEventListener("mousedown", onDown)
+      document.removeEventListener("pointerdown", onDown, true)
       window.removeEventListener("keydown", onKey, true)
     }
   }, [onClose])

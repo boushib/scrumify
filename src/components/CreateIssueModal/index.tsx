@@ -85,6 +85,7 @@ const CreateIssueForm = ({ initialProject, onClose }: FormProps) => {
 
   return (
     <Modal
+      onSubmit={submit}
       title="Create issue"
       onClose={onClose}
       width={620}
@@ -97,18 +98,14 @@ const CreateIssueForm = ({ initialProject, onClose }: FormProps) => {
           <Button variant="subtle" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={submit}>
+          <Button type="submit" variant="primary">
             Create
           </Button>
         </>
       }
     >
-      <form
+      <div
         className={styles.form}
-        onSubmit={e => {
-          e.preventDefault()
-          submit()
-        }}
         onKeyDown={e => {
           if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) submit()
         }}
@@ -226,9 +223,7 @@ const CreateIssueForm = ({ initialProject, onClose }: FormProps) => {
             </label>
           </div>
         )}
-        {/* Lets Enter submit; the visible buttons sit in the modal footer, outside the form */}
-        <button type="submit" className="sr-only" tabIndex={-1} aria-hidden />
-      </form>
+      </div>
     </Modal>
   )
 }

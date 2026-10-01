@@ -15,15 +15,24 @@ interface Props {
   bodyClassName?: string
   /** Accessible name when there is no visible title */
   label?: string
+  /** Wraps body and footer in a form, so Enter and type="submit" footer buttons submit */
+  onSubmit?: () => void
   children: React.ReactNode
 }
 
-const Modal = ({ title, onClose, footer, width = 520, className, bodyClassName, label, children }: Props) => {
+const Modal = ({ title, onClose, footer, width = 520, className, bodyClassName, label, onSubmit, children }: Props) => {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
   }, [onClose])
+
+  const body = (
+    <>
+      <div className={classNames(styles.modalBody, bodyClassName)}>{children}</div>
+      {footer && <footer className={styles.modalFooter}>{footer}</footer>}
+    </>
+  )
 
   return createPortal(
     <div className={styles.backdrop} onMouseDown={onClose}>
@@ -43,8 +52,19 @@ const Modal = ({ title, onClose, footer, width = 520, className, bodyClassName, 
             </button>
           </header>
         )}
-        <div className={classNames(styles.modalBody, bodyClassName)}>{children}</div>
-        {footer && <footer className={styles.modalFooter}>{footer}</footer>}
+        {onSubmit ? (
+          <form
+            className={styles.modalForm}
+            onSubmit={e => {
+              e.preventDefault()
+              onSubmit()
+            }}
+          >
+            {body}
+          </form>
+        ) : (
+          body
+        )}
       </div>
     </div>,
     document.body

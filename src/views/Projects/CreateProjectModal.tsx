@@ -38,6 +38,7 @@ const CreateProjectModal = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <Modal
+      onSubmit={submit}
       title="Create project"
       onClose={onClose}
       width={560}
@@ -46,18 +47,14 @@ const CreateProjectModal = ({ onClose }: { onClose: () => void }) => {
           <Button variant="subtle" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={submit}>
+          <Button type="submit" variant="primary">
             Create project
           </Button>
         </>
       }
     >
-      <form
+      <div
         className={styles.form}
-        onSubmit={e => {
-          e.preventDefault()
-          submit()
-        }}
       >
         <div className={styles.formRow}>
           <label className={styles.field}>
@@ -103,9 +100,7 @@ const CreateProjectModal = ({ onClose }: { onClose: () => void }) => {
           <span>Color</span>
           <ColorPicker value={color} onChange={setColor} />
         </div>
-        {/* Lets Enter submit; the visible buttons sit in the modal footer, outside the form */}
-        <button type="submit" className="sr-only" tabIndex={-1} aria-hidden />
-      </form>
+      </div>
     </Modal>
   )
 }

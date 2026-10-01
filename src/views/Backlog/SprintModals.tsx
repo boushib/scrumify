@@ -70,6 +70,7 @@ export const SprintFormModal = ({ sprint, mode, issueCount, onClose }: SprintFor
 
   return (
     <Modal
+      onSubmit={submit}
       title={mode === "start" ? "Start sprint" : "Edit sprint"}
       onClose={onClose}
       footer={
@@ -77,18 +78,14 @@ export const SprintFormModal = ({ sprint, mode, issueCount, onClose }: SprintFor
           <Button variant="subtle" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" disabled={invalid} onClick={submit}>
+          <Button type="submit" variant="primary" disabled={invalid}>
             {mode === "start" ? "Start" : "Update"}
           </Button>
         </>
       }
     >
-      <form
+      <div
         className={styles.form}
-        onSubmit={e => {
-          e.preventDefault()
-          submit()
-        }}
       >
         {mode === "start" && (
           <p className={styles.formIntro}>
@@ -123,9 +120,7 @@ export const SprintFormModal = ({ sprint, mode, issueCount, onClose }: SprintFor
           <span>Sprint goal</span>
           <textarea rows={3} value={goal} onChange={e => setGoal(e.target.value)} placeholder="What should this sprint achieve?" />
         </label>
-        {/* Lets Enter submit; the visible buttons sit in the modal footer, outside the form */}
-        <button type="submit" className="sr-only" tabIndex={-1} aria-hidden />
-      </form>
+      </div>
     </Modal>
   )
 }
@@ -157,6 +152,7 @@ export const CompleteSprintModal = ({ sprint, project, onClose }: CompleteProps)
 
   return (
     <Modal
+      onSubmit={submit}
       title={`Complete ${sprint.name}`}
       onClose={onClose}
       footer={
@@ -164,7 +160,7 @@ export const CompleteSprintModal = ({ sprint, project, onClose }: CompleteProps)
           <Button variant="subtle" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={submit}>
+          <Button type="submit" variant="primary" autoFocus>
             Complete sprint
           </Button>
         </>
