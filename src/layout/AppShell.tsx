@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useEffect } from "react"
+import CreateIssueModal from "@/components/CreateIssueModal"
 import IssueModalHost from "@/components/IssueModal"
 import Toasts from "@/components/ui/Toasts"
 import { useIsClient } from "@/hooks/useIsClient"
@@ -35,6 +36,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
       </div>
       <Suspense>
         <IssueModalHost />
+        <CreateIssueModal />
       </Suspense>
       <Toasts />
     </div>

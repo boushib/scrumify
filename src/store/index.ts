@@ -331,7 +331,8 @@ export const useStore = create<Data & Actions>()(
 
         setTheme: theme => set({ theme }),
 
-        resetDemo: () => set(seedData()),
+        // Keeps the theme; only the demo content is restored
+        resetDemo: () => set({ ...seedData(), theme: get().theme }),
       }
     },
     {
