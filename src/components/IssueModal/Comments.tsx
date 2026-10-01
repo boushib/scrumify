@@ -44,7 +44,11 @@ const Composer = ({
         onBlur={() => setFocused(false)}
         onChange={e => setBody(e.target.value)}
         onKeyDown={e => {
-          if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) submit()
+          // Enter saves, Shift+Enter adds a line (skipped while an IME is composing)
+          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+            e.preventDefault()
+            submit()
+          }
           if (e.key === "Escape") {
             e.stopPropagation()
             if (onCancel) onCancel()
@@ -62,7 +66,7 @@ const Composer = ({
               Cancel
             </Button>
           )}
-          <span className={styles.editorHint}>⌘ Enter to save</span>
+          <span className={styles.editorHint}>Enter to save · Shift+Enter for a new line</span>
         </div>
       )}
     </div>

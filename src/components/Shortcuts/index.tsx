@@ -40,7 +40,9 @@ const GROUPS: { title: string; keys: [string[], string][] }[] = [
   {
     title: "Editing",
     keys: [
-      [["⌘", "Enter"], "Save a description or comment"],
+      [["Enter"], "Save a comment"],
+      [["Shift", "Enter"], "New line in a comment"],
+      [["⌘", "Enter"], "Save a description"],
       [["Esc"], "Cancel editing"],
     ],
   },
