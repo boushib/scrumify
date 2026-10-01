@@ -1,24 +1,38 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { formatShortDate } from "@/lib/format"
 import type { BurndownPoint, Slice, VelocityPoint } from "@/lib/reports"
 import styles from "./Reports.module.sass"
 
-const W = 640
 const H = 260
 const PAD = { top: 16, right: 16, bottom: 32, left: 40 }
-const plotW = W - PAD.left - PAD.right
 const plotH = H - PAD.top - PAD.bottom
 
-/** Round the axis maximum up to a friendly number */
-const niceMax = (value: number) => {
-  if (value <= 5) return 5
-  const step = Math.pow(10, Math.floor(Math.log10(value)))
-  return Math.ceil(value / (step / 2)) * (step / 2)
+/**
+ * The chart's drawing width follows its container, so text keeps its real
+ * size on phones instead of shrinking with a scaled-down viewBox.
+ */
+const useChartWidth = () => {
+  const [width, setWidth] = useState(640)
+  const ref = useCallback((el: HTMLDivElement | null) => {
+    if (!el) return
+    const observer = new ResizeObserver(([entry]) => setWidth(Math.max(280, Math.round(entry.contentRect.width))))
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+  return [ref, width] as const
 }
 
-const Grid = ({ max }: { max: number }) => (
+/** Axis maximum with four round ticks: 1, 2 or 5 times a power of ten each */
+const niceMax = (value: number) => {
+  const raw = Math.max(1, value) / 4
+  const magnitude = Math.pow(10, Math.floor(Math.log10(raw)))
+  const tick = [1, 2, 5, 10].map(m => m * magnitude).find(t => t >= raw)!
+  return Math.max(4, tick * 4)
+}
+
+const Grid = ({ max, W }: { max: number; W: number }) => (
   <g>
     {[0, 0.25, 0.5, 0.75, 1].map(f => {
       const y = PAD.top + plotH * (1 - f)
@@ -36,6 +50,8 @@ const Grid = ({ max }: { max: number }) => (
 
 export const BurndownChart = ({ points, now }: { points: BurndownPoint[]; now: number }) => {
   const [hover, setHover] = useState<number | null>(null)
+  const [ref, W] = useChartWidth()
+  const plotW = W - PAD.left - PAD.right
   if (points.length < 2) return <p className={styles.empty}>This sprint has no dates.</p>
 
   const max = niceMax(Math.max(...points.map(p => Math.max(p.ideal, p.remaining ?? 0))))
@@ -47,13 +63,13 @@ export const BurndownChart = ({ points, now }: { points: BurndownPoint[]; now: n
     .map((p, i) => (i === 0 ? `M${x(i)},${y(p.remaining!)}` : `H${x(i)}V${y(p.remaining!)}`))
     .join("")
   const todayIndex = points.findIndex(p => p.day > now) - 1
-  const labelEvery = Math.ceil(points.length / 8)
+  const labelEvery = Math.ceil(points.length / Math.max(3, Math.floor(plotW / 70)))
   const hovered = hover !== null ? points[hover] : null
 
   return (
-    <div className={styles.chartWrap}>
+    <div ref={ref} className={styles.chartWrap}>
       <svg viewBox={`0 0 ${W} ${H}`} className={styles.chart} role="img" aria-label="Sprint burndown chart">
-        <Grid max={max} />
+        <Grid max={max} W={W} />
         {points.map((p, i) =>
           i % labelEvery === 0 || i === points.length - 1 ? (
             <text key={p.day} x={x(i)} y={H - 10} textAnchor="middle" className={styles.axisText}>
@@ -103,6 +119,8 @@ export const BurndownChart = ({ points, now }: { points: BurndownPoint[]; now: n
 }
 
 export const VelocityChart = ({ data }: { data: VelocityPoint[] }) => {
+  const [ref, W] = useChartWidth()
+  const plotW = W - PAD.left - PAD.right
   if (!data.length) return <p className={styles.empty}>Complete a sprint to see your velocity.</p>
   const max = niceMax(Math.max(...data.map(d => Math.max(d.committed, d.completed))))
   const group = plotW / data.length
@@ -110,9 +128,9 @@ export const VelocityChart = ({ data }: { data: VelocityPoint[] }) => {
   const y = (v: number) => PAD.top + plotH * (1 - v / max)
 
   return (
-    <div className={styles.chartWrap}>
+    <div ref={ref} className={styles.chartWrap}>
       <svg viewBox={`0 0 ${W} ${H}`} className={styles.chart} role="img" aria-label="Velocity chart">
-        <Grid max={max} />
+        <Grid max={max} W={W} />
         {data.map((d, i) => {
           const cx = PAD.left + group * i + group / 2
           return (
@@ -128,7 +146,7 @@ export const VelocityChart = ({ data }: { data: VelocityPoint[] }) => {
               </text>
               <text x={cx} y={H - 10} textAnchor="middle" className={styles.axisText}>
                 {d.sprint.name.replace(/^.*?(Sprint \d+)$/, "$1")}
-                {d.sprint.state === "active" ? " (active)" : ""}
+                {d.sprint.state === "active" && group > 110 ? " (active)" : ""}
               </text>
             </g>
           )

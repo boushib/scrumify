@@ -143,7 +143,7 @@ const ReportsView = () => {
                   <li key={row.userId ?? "none"}>
                     <span className={styles.workloadName}>
                       <Avatar user={user} size={24} />
-                      {user?.name ?? "Unassigned"}
+                      <span>{user?.name ?? "Unassigned"}</span>
                     </span>
                     <span className={styles.workloadBar} title={`To do ${row.todo} · In progress ${row.in_progress} · Done ${row.done}`}>
                       <span style={{ width: `${(row.done / maxLoad) * 100}%`, backgroundColor: "var(--done)" }} />

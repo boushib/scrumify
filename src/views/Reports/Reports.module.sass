@@ -5,7 +5,7 @@
 
 .stats
   display: grid
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr))
   gap: 12px
   padding: 0 28px 16px
 
@@ -202,6 +202,8 @@
   display: flex
   flex-wrap: wrap
   align-items: center
+  // Centers the chart when the legend wraps below it
+  justify-content: center
   gap: 24px
 
   svg
@@ -264,6 +266,10 @@
   gap: 8px
   overflow: hidden
   white-space: nowrap
+
+  span:last-child
+    overflow: hidden
+    text-overflow: ellipsis
 
 .workloadBar
   display: flex

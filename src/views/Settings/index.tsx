@@ -195,7 +195,7 @@ const Columns = ({ project }: { project: Project }) => {
                 max={99}
                 className={styles.wip}
                 value={status.wipLimit || ""}
-                placeholder="None"
+                placeholder={status.wipLimit ? undefined : "No limit"}
                 aria-label={`WIP limit for ${status.name}`}
                 onChange={e => patch(status.id, { wipLimit: Math.max(0, Math.min(99, Number(e.target.value) || 0)) })}
               />

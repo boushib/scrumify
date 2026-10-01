@@ -191,9 +191,31 @@
   .columnsHead
     display: none
 
+  .card
+    padding: 16px
+
+  // Name and actions on top, then category and WIP limit
   .columnRow
     grid-template-columns: minmax(0, 1fr) auto
+    grid-template-areas: "name actions" "category wip"
     row-gap: 6px
+    padding: 10px 8px
+
+    > button
+      grid-area: category
+
+  .columnName
+    grid-area: name
+
+    > span
+      display: none
+
+  .wip
+    grid-area: wip
+    width: 96px
+
+  .columnActions
+    grid-area: actions
 
   .columnCount
     display: none
