@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import BoardCol from "@/components/BoardCol"
 import CreateStory from "@/components/CreateStory"
 import StoryDetails from "@/components/StoryDetails"
@@ -7,22 +7,12 @@ import { Story, StoryStatus } from "@/models"
 import "./Board.sass"
 
 const Board = () => {
-  const [stories, setStories] = useState<Array<Story>>([])
+  const [stories, setStories] = useState<Array<Story>>(() => {
+    const storedStories = localStorage.getItem("stories")
+    return storedStories ? JSON.parse(storedStories) : STORIES
+  })
   const [selectedStory, setSelectedStory] = useState<Story>()
   const [selectedStatus, setSelectedStatus] = useState<StoryStatus>()
-
-  useEffect(() => {
-    const storedStories = localStorage.getItem("stories")
-
-    if (!storedStories) {
-      localStorage.setItem("stories", JSON.stringify(STORIES))
-    }
-
-    const stories = storedStories
-      ? JSON.parse(storedStories)
-      : setStories(STORIES)
-    setStories(stories)
-  }, [])
 
   const handleUpdateStory = (storyId: string, status: StoryStatus) => {
     const _stories = [...stories]
