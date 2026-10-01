@@ -81,6 +81,8 @@ interface Actions {
   // projects
   createProject: (input: Pick<Project, "name" | "key" | "icon" | "color" | "description">) => Project
   updateProject: (id: string, patch: Partial<Pick<Project, "name" | "description" | "icon" | "color" | "leadId" | "statuses">>) => void
+  /** Remove a project with its sprints and issues */
+  deleteProject: (id: string) => void
   // app
   setTheme: (theme: Theme) => void
   resetDemo: () => void
@@ -328,6 +330,13 @@ export const useStore = create<Data & Actions>()(
 
         updateProject: (id, patch) =>
           set(state => ({ projects: state.projects.map(p => (p.id === id ? { ...p, ...patch } : p)) })),
+
+        deleteProject: id =>
+          set(state => ({
+            projects: state.projects.filter(p => p.id !== id),
+            sprints: state.sprints.filter(s => s.projectId !== id),
+            issues: Object.fromEntries(Object.entries(state.issues).filter(([, i]) => i.projectId !== id)),
+          })),
 
         setTheme: theme => set({ theme }),
 

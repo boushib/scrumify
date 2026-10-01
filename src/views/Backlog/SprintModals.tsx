@@ -123,6 +123,8 @@ export const SprintFormModal = ({ sprint, mode, issueCount, onClose }: SprintFor
           <span>Sprint goal</span>
           <textarea rows={3} value={goal} onChange={e => setGoal(e.target.value)} placeholder="What should this sprint achieve?" />
         </label>
+        {/* Lets Enter submit; the visible buttons sit in the modal footer, outside the form */}
+        <button type="submit" className="sr-only" tabIndex={-1} aria-hidden />
       </form>
     </Modal>
   )

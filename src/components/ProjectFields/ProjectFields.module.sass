@@ -1,0 +1,52 @@
+.icons
+  display: grid
+  grid-template-columns: repeat(8, 36px)
+  gap: 6px
+
+.icon
+  display: grid
+  place-items: center
+  width: 36px
+  height: 36px
+  border-radius: var(--radius-sm)
+  font-size: 18px
+  background-color: var(--surface-2)
+
+  &:hover
+    background-color: var(--surface-hover)
+
+.iconActive
+  background-color: var(--primary-soft)
+  box-shadow: 0 0 0 2px var(--primary)
+
+  &:hover
+    background-color: var(--primary-soft)
+
+.colors
+  display: flex
+  flex-wrap: wrap
+  gap: 8px
+
+.color
+  display: grid
+  place-items: center
+  width: 28px
+  height: 28px
+  border-radius: 50%
+  color: #fff
+
+  &:hover
+    transform: scale(1.08)
+
+  &[aria-checked="true"]
+    box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text)
+
+.avatar
+  display: grid
+  place-items: center
+  flex-shrink: 0
+  border-radius: var(--radius)
+
+@media (max-width: 480px)
+  .icons
+    grid-template-columns: repeat(auto-fill, 36px)

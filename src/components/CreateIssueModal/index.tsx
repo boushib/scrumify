@@ -226,6 +226,8 @@ const CreateIssueForm = ({ initialProject, onClose }: FormProps) => {
             </label>
           </div>
         )}
+        {/* Lets Enter submit; the visible buttons sit in the modal footer, outside the form */}
+        <button type="submit" className="sr-only" tabIndex={-1} aria-hidden />
       </form>
     </Modal>
   )

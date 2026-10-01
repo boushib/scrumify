@@ -1,8 +1,12 @@
+.page
+  height: 100%
+  overflow-y: auto
+
 .grid
   display: grid
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
   gap: 16px
-  padding: 8px 28px 28px
+  padding: 0 28px 28px
 
 .card
   display: flex
@@ -18,39 +22,142 @@
     transform: translateY(-2px)
     box-shadow: var(--shadow-md), 0 0 0 1px var(--border-strong)
 
-.icon
-  width: 40px
-  height: 40px
+.cardTop
   display: flex
   align-items: center
-  justify-content: center
-  border-radius: 10px
-  font-size: 22px
+  gap: 12px
 
 .text
+  min-width: 0
+
   h2
+    overflow: hidden
     font-size: 16px
     font-weight: 600
+    text-overflow: ellipsis
+    white-space: nowrap
 
-  p
-    margin-top: 2px
-    color: var(--text-muted)
-    font-size: 13px
+.key
+  color: var(--text-subtle)
+  font-size: 12px
+  font-weight: 500
+
+.description
+  display: -webkit-box
+  overflow: hidden
+  color: var(--text-muted)
+  font-size: 13px
+  line-height: 1.5
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: 2
+
+.sprintLine
+  display: flex
+  align-items: center
+  gap: 8px
+  color: var(--text-muted)
+  font-size: 12px
+
+.progress
+  flex: 1
+  height: 6px
+  border-radius: 3px
+  background-color: var(--surface-active)
+  overflow: hidden
+
+  span
+    display: block
+    height: 100%
+    background-color: var(--done)
+
+.muted
+  color: var(--text-subtle)
 
 .footer
   display: flex
   align-items: center
-  gap: 10px
+  justify-content: space-between
   margin-top: auto
-  color: var(--text-subtle)
+  padding-top: 12px
+  border-top: 1px solid var(--border)
+  color: var(--text-muted)
   font-size: 12px
 
-  > :last-child
-    margin-left: auto
-
-.key
-  padding: 1px 6px
-  border-radius: 4px
-  background-color: var(--surface-2)
+.newCard
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  gap: 8px
+  min-height: 180px
+  border: 2px dashed var(--border-strong)
+  border-radius: 10px
   color: var(--text-muted)
+  font-size: 14px
   font-weight: 600
+
+  &:hover
+    border-color: var(--primary)
+    color: var(--primary)
+
+// Create form
+
+.form
+  display: flex
+  flex-direction: column
+  gap: 16px
+
+.formRow
+  display: grid
+  grid-template-columns: minmax(0, 1fr) 140px
+  gap: 12px
+
+.field
+  display: flex
+  flex-direction: column
+  gap: 6px
+  min-width: 0
+
+  > span
+    color: var(--text-muted)
+    font-size: 12px
+    font-weight: 600
+
+    em
+      color: var(--danger)
+      font-style: normal
+
+  input, textarea
+    width: 100%
+    padding: 8px 10px
+    border: 1px solid var(--border-strong)
+    border-radius: var(--radius-sm)
+    outline: 0
+    color: var(--text)
+    font: inherit
+    font-size: 14px
+    background-color: var(--surface)
+    resize: vertical
+
+    &:focus
+      border-color: var(--focus)
+      box-shadow: 0 0 0 1px var(--focus)
+
+    &[aria-invalid="true"]
+      border-color: var(--danger)
+
+  small
+    color: var(--danger)
+    font-size: 12px
+
+  i
+    color: var(--text-subtle)
+    font-size: 12px
+    font-style: normal
+
+@media (max-width: 720px)
+  .grid
+    padding: 0 16px 24px
+
+  .formRow
+    grid-template-columns: 1fr
