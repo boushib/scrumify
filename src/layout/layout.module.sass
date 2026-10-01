@@ -43,6 +43,15 @@
   border-right: 1px solid var(--border)
   background-color: var(--surface)
 
+.logoRow
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+// .topbar prefix outranks the Button component's own display rule
+.closeNav, .topbar .menuButton, .scrim
+  display: none
+
 .logo
   display: flex
   align-items: center
@@ -215,3 +224,64 @@
 .userEmail
   color: var(--text-subtle)
   font-size: 12px
+
+// Small screens: the sidebar becomes a drawer
+@media (max-width: 860px)
+  .sidebar
+    position: fixed
+    inset: 0 auto 0 0
+    z-index: 90
+    width: min(300px, 86vw)
+    box-shadow: var(--shadow-lg)
+    transform: translateX(-100%)
+    transition: transform .2s ease
+    visibility: hidden
+
+  .sidebarOpen
+    transform: none
+    visibility: visible
+
+  .closeNav
+    display: flex
+    padding: 6px
+    border-radius: var(--radius-sm)
+    color: var(--text-muted)
+
+    &:hover
+      background-color: var(--surface-hover)
+
+  .scrim
+    display: block
+    position: fixed
+    inset: 0
+    z-index: 80
+    background-color: rgba(9, 13, 22, .5)
+    animation: fadeIn .15s ease-out
+
+  .topbar .menuButton
+    display: inline-flex
+
+  .topbar
+    gap: 8px
+    padding: 0 12px
+
+  .search
+    width: auto
+    flex: 1
+
+    kbd
+      display: none
+
+@media (max-width: 520px)
+  .search span
+    display: none
+
+  .search
+    flex: 0 0 auto
+
+  .createLabel
+    display: none
+
+@keyframes fadeIn
+  from
+    opacity: 0

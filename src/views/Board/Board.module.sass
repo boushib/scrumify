@@ -190,6 +190,14 @@
     font-weight: 600
 
 @media (max-width: 720px)
+  // One column at a time, snapping as you swipe
   .columns
     padding-left: 16px
     padding-right: 16px
+    scroll-snap-type: x mandatory
+    scroll-padding: 0 16px
+
+  .column
+    flex: 0 0 82vw
+    max-width: none
+    scroll-snap-align: start

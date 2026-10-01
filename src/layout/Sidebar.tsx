@@ -1,12 +1,13 @@
 "use client"
 
 import classNames from "classnames"
-import { BarChart3, ChevronsUpDown, Kanban, LayoutGrid, ListTodo, Plus, Settings } from "lucide-react"
+import { BarChart3, ChevronsUpDown, Kanban, LayoutGrid, ListTodo, Plus, Settings, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import Popover, { Menu, MenuItem, MenuSeparator, usePopover } from "@/components/ui/Popover"
 import { useProject } from "@/hooks/useProject"
 import { useStore } from "@/store"
+import { useUi } from "@/store/ui"
 import styles from "./layout.module.sass"
 
 const NAV = [
@@ -22,13 +23,24 @@ const Sidebar = () => {
   const project = useProject()
   const projects = useStore(s => s.projects)
   const switcher = usePopover()
+  const navOpen = useUi(s => s.navOpen)
+  const setNavOpen = useUi(s => s.setNavOpen)
+  const go = (href: string) => {
+    setNavOpen(false)
+    router.push(href)
+  }
 
   return (
-    <aside className={styles.sidebar} data-panel="nav">
-      <Link href="/projects" className={styles.logo}>
-        <span className={styles.logoMark}>S</span>
-        Scrumify
-      </Link>
+    <aside className={classNames(styles.sidebar, navOpen && styles.sidebarOpen)} data-panel="nav">
+      <div className={styles.logoRow}>
+        <Link href="/projects" className={styles.logo} onClick={() => setNavOpen(false)}>
+          <span className={styles.logoMark}>S</span>
+          Scrumify
+        </Link>
+        <button type="button" className={styles.closeNav} aria-label="Close navigation" onClick={() => setNavOpen(false)}>
+          <X size={18} />
+        </button>
+      </div>
 
       {project && (
         <>
@@ -54,7 +66,7 @@ const Sidebar = () => {
                     hint={p.key}
                     onClick={() => {
                       switcher.close()
-                      router.push(`/projects/${p.key}/board`)
+                      go(`/projects/${p.key}/board`)
                     }}
                   />
                 ))}
@@ -64,7 +76,7 @@ const Sidebar = () => {
                   label="View all projects"
                   onClick={() => {
                     switcher.close()
-                    router.push("/projects")
+                    go("/projects")
                   }}
                 />
                 <MenuItem
@@ -72,7 +84,7 @@ const Sidebar = () => {
                   label="Create project"
                   onClick={() => {
                     switcher.close()
-                    router.push("/projects?new=1")
+                    go("/projects?new=1")
                   }}
                 />
               </Menu>
@@ -84,7 +96,13 @@ const Sidebar = () => {
             {NAV.map(({ href, label, icon: Icon }) => {
               const to = `/projects/${project.key}/${href}`
               return (
-                <Link key={href} href={to} className={classNames(styles.navItem, pathname === to && styles.navItemActive)}>
+                <Link
+                  key={href}
+                  href={to}
+                  className={classNames(styles.navItem, pathname === to && styles.navItemActive)}
+                  aria-current={pathname === to ? "page" : undefined}
+                  onClick={() => setNavOpen(false)}
+                >
                   <Icon size={18} />
                   {label}
                 </Link>
@@ -96,7 +114,7 @@ const Sidebar = () => {
 
       {!project && (
         <nav className={styles.nav}>
-          <Link href="/projects" className={classNames(styles.navItem, styles.navItemActive)}>
+          <Link href="/projects" className={classNames(styles.navItem, styles.navItemActive)} onClick={() => setNavOpen(false)}>
             <LayoutGrid size={18} />
             Projects
           </Link>

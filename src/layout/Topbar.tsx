@@ -1,11 +1,12 @@
 "use client"
 
-import { Moon, Plus, RotateCcw, Search, Sun } from "lucide-react"
+import { Keyboard, Menu as MenuIcon, Moon, Plus, RotateCcw, Search, Sun } from "lucide-react"
 import Avatar from "@/components/ui/Avatar"
 import Button from "@/components/ui/Button"
 import Popover, { Menu, MenuItem, MenuSeparator, usePopover } from "@/components/ui/Popover"
 import { toast } from "@/components/ui/Toasts"
 import { CURRENT_USER_ID, useStore } from "@/store"
+import { useUi } from "@/store/ui"
 import styles from "./layout.module.sass"
 
 const Topbar = () => {
@@ -14,16 +15,31 @@ const Topbar = () => {
   const resetDemo = useStore(s => s.resetDemo)
   const me = useStore(s => s.users.find(u => u.id === CURRENT_USER_ID))
   const userMenu = usePopover()
+  const setNavOpen = useUi(s => s.setNavOpen)
+  const setPaletteOpen = useUi(s => s.setPaletteOpen)
+  const setShortcutsOpen = useUi(s => s.setShortcutsOpen)
 
   return (
     <header className={styles.topbar}>
-      <button type="button" className={styles.search} onClick={() => window.dispatchEvent(new Event("scrumify:search"))}>
+      <Button
+        variant="subtle"
+        className={styles.menuButton}
+        icon={<MenuIcon size={20} />}
+        aria-label="Open navigation"
+        onClick={() => setNavOpen(true)}
+      />
+      <button type="button" className={styles.search} aria-label="Search" onClick={() => setPaletteOpen(true)}>
         <Search size={16} />
         <span>Search issues…</span>
         <kbd>⌘K</kbd>
       </button>
-      <Button variant="primary" icon={<Plus size={16} />} onClick={() => window.dispatchEvent(new Event("scrumify:create"))}>
-        Create
+      <Button
+        variant="primary"
+        icon={<Plus size={16} />}
+        aria-label="Create issue"
+        onClick={() => window.dispatchEvent(new Event("scrumify:create"))}
+      >
+        <span className={styles.createLabel}>Create</span>
       </Button>
       <div className={styles.topbarTail}>
         <Button
@@ -46,6 +62,15 @@ const Topbar = () => {
                 </div>
               </div>
               <MenuSeparator />
+              <MenuItem
+                icon={<Keyboard size={16} />}
+                label="Keyboard shortcuts"
+                hint="?"
+                onClick={() => {
+                  userMenu.close()
+                  setShortcutsOpen(true)
+                }}
+              />
               <MenuItem
                 icon={<RotateCcw size={16} />}
                 label="Reset demo data"

@@ -25,6 +25,7 @@
   align-items: center
   gap: 6px
   min-width: 0
+  overflow: hidden
   color: var(--text-subtle)
   font-size: 13px
 
@@ -512,6 +513,13 @@
 
   .header
     padding-left: 16px
+
+  // The project is obvious from the page; keep the issue path
+  .crumbProject, .crumbProject + svg
+    display: none
+
+  .title
+    font-size: 20px
 
   .side
     padding: 0 16px 24px
