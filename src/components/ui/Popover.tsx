@@ -5,19 +5,34 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import styles from "./ui.module.sass"
 
+/**
+ * Only one popover is open at a time. Triggers stop mousedown (so a click on
+ * a trigger doesn't count as "outside" its own popover), which also hides the
+ * click from other open popovers, so opening one closes the previous one here.
+ */
+let closeOpen: (() => void) | null = null
+
 /** Anchor state plus props for the element that toggles a popover */
 export const usePopover = () => {
   const [anchor, setAnchor] = useState<DOMRect | null>(null)
-  const close = useCallback(() => setAnchor(null), [])
+  const close = useCallback(function close() {
+    setAnchor(null)
+    if (closeOpen === close) closeOpen = null
+  }, [])
   const triggerProps = {
     "aria-expanded": anchor !== null,
     onClick: (e: React.MouseEvent<HTMLElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect()
-      setAnchor(current => (current ? null : rect))
+      if (anchor) {
+        close()
+        return
+      }
+      if (closeOpen !== close) closeOpen?.()
+      closeOpen = close
+      setAnchor(e.currentTarget.getBoundingClientRect())
     },
     onMouseDown: (e: React.MouseEvent) => e.stopPropagation(),
   }
-  return { anchor, close, triggerProps, setAnchor }
+  return { anchor, close, triggerProps }
 }
 
 interface Props {
