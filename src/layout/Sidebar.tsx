@@ -9,8 +9,9 @@ import { useProject } from "@/hooks/useProject"
 import { useStore } from "@/store"
 import { useUi } from "@/store/ui"
 import styles from "./layout.module.sass"
+import { projectHref, type ProjectView } from "@/lib/routes"
 
-const NAV = [
+const NAV: { href: ProjectView; label: string; icon: typeof Kanban }[] = [
   { href: "board", label: "Board", icon: Kanban },
   { href: "backlog", label: "Backlog", icon: ListTodo },
   { href: "reports", label: "Reports", icon: BarChart3 },
@@ -66,7 +67,7 @@ const Sidebar = () => {
                     hint={p.key}
                     onClick={() => {
                       switcher.close()
-                      go(`/projects/${p.key}/board`)
+                      go(projectHref(p.key))
                     }}
                   />
                 ))}
@@ -94,13 +95,13 @@ const Sidebar = () => {
           <nav className={styles.nav}>
             <span className={styles.navHeading}>Planning</span>
             {NAV.map(({ href, label, icon: Icon }) => {
-              const to = `/projects/${project.key}/${href}`
+              const active = pathname.replace(/\/$/, "") === `/${href}`
               return (
                 <Link
                   key={href}
-                  href={to}
-                  className={classNames(styles.navItem, pathname === to && styles.navItemActive)}
-                  aria-current={pathname === to ? "page" : undefined}
+                  href={projectHref(project.key, href)}
+                  className={classNames(styles.navItem, active && styles.navItemActive)}
+                  aria-current={active ? "page" : undefined}
                   onClick={() => setNavOpen(false)}
                 >
                   <Icon size={18} />

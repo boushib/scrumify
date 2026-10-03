@@ -27,6 +27,7 @@ import { useStore } from "@/store"
 import { activeSprintOf, byRank, issuesOf } from "@/store/selectors"
 import BoardColumn from "./BoardColumn"
 import styles from "./Board.module.sass"
+import { projectHref } from "@/lib/routes"
 
 type Columns = Record<string, string[]>
 
@@ -149,7 +150,7 @@ const BoardView = () => {
         <div className={styles.empty}>
           <h2>No active sprint</h2>
           <p>Plan a sprint in the backlog and start it to see its issues on the board.</p>
-          <Link href={`/projects/${project.key}/backlog`}>Go to backlog</Link>
+          <Link href={projectHref(project.key, "backlog")}>Go to backlog</Link>
         </div>
       ) : (
         <>

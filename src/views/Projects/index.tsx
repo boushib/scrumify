@@ -11,6 +11,7 @@ import { useStore } from "@/store"
 import { activeSprintOf, isDone, issuesOf } from "@/store/selectors"
 import CreateProjectModal from "./CreateProjectModal"
 import styles from "./Projects.module.sass"
+import { projectHref } from "@/lib/routes"
 
 const ProjectsView = () => {
   const router = useRouter()
@@ -44,7 +45,7 @@ const ProjectsView = () => {
             ? Math.round((inSprint.filter(i => isDone(project, i)).length / inSprint.length) * 100)
             : null
           return (
-            <Link key={project.id} href={`/projects/${project.key}/board`} className={styles.card}>
+            <Link key={project.id} href={projectHref(project.key)} className={styles.card}>
               <div className={styles.cardTop}>
                 <ProjectAvatar icon={project.icon} color={project.color} />
                 <div className={styles.text}>

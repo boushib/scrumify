@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Project } from "@/models"
 import styles from "./PageHeader.module.sass"
+import { projectHref } from "@/lib/routes"
 
 interface Props {
   project?: Project
@@ -17,7 +18,7 @@ const PageHeader = ({ project, title, subtitle, actions }: Props) => (
         {project && (
           <>
             <span>/</span>
-            <Link href={`/projects/${project.key}/board`}>{project.name}</Link>
+            <Link href={projectHref(project.key)}>{project.name}</Link>
           </>
         )}
       </nav>

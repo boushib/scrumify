@@ -8,6 +8,7 @@ import Modal from "@/components/ui/Modal"
 import { toast } from "@/components/ui/Toasts"
 import { useStore } from "@/store"
 import styles from "./Projects.module.sass"
+import { projectHref } from "@/lib/routes"
 
 const CreateProjectModal = ({ onClose }: { onClose: () => void }) => {
   const router = useRouter()
@@ -33,7 +34,7 @@ const CreateProjectModal = ({ onClose }: { onClose: () => void }) => {
     createSprint(project.id)
     toast(`${project.name} created`, "success")
     onClose()
-    router.push(`/projects/${project.key}/backlog`)
+    router.push(projectHref(project.key, "backlog"))
   }
 
   return (

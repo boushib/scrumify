@@ -12,6 +12,7 @@ import { useStore } from "@/store"
 import { activeSprintOf, isDone, issuesOf, sumPoints } from "@/store/selectors"
 import { BurndownChart, DonutChart, VelocityChart } from "./charts"
 import styles from "./Reports.module.sass"
+import { projectHref } from "@/lib/routes"
 
 const DAY = 24 * 60 * 60 * 1000
 const CATEGORY_COLORS = { todo: "var(--todo)", in_progress: "var(--progress)", done: "var(--done)" }
@@ -108,7 +109,7 @@ const ReportsView = () => {
             <BurndownChart points={burn} now={now} />
           ) : (
             <p className={styles.empty}>
-              Start a sprint from the <Link href={`/projects/${project.key}/backlog`}>backlog</Link> to track its burndown.
+              Start a sprint from the <Link href={projectHref(project.key, "backlog")}>backlog</Link> to track its burndown.
             </p>
           )}
         </section>

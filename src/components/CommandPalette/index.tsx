@@ -12,6 +12,7 @@ import { useProject } from "@/hooks/useProject"
 import { useStore } from "@/store"
 import { useUi } from "@/store/ui"
 import styles from "./CommandPalette.module.sass"
+import { projectHref, type ProjectView } from "@/lib/routes"
 
 interface Item {
   id: string
@@ -64,7 +65,7 @@ const Palette = () => {
           ),
           run: () => {
             // Open on the issue's own project board when it belongs elsewhere
-            if (project && project.id !== current?.id) router.push(`/projects/${project.key}/board?issue=${issue.id}`)
+            if (project && project.id !== current?.id) router.push(projectHref(project.key, "board", { issue: issue.id }))
             else openIssue(issue.id)
           },
         }
@@ -82,10 +83,10 @@ const Palette = () => {
             {p.icon}
           </span>
         ),
-        run: () => router.push(`/projects/${p.key}/board`),
+        run: () => router.push(projectHref(p.key)),
       }))
 
-    const go = (path: string) => () => current && router.push(`/projects/${current.key}/${path}`)
+    const go = (view: ProjectView) => () => current && router.push(projectHref(current.key, view))
     const actions: Item[] = [
       { id: "create", group: "Actions", label: "Create issue", icon: <Plus size={16} />, hint: <kbd>C</kbd>, run: () => window.dispatchEvent(new Event("scrumify:create")) },
       ...(current

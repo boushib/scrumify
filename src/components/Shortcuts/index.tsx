@@ -7,6 +7,7 @@ import Modal from "@/components/ui/Modal"
 import { useProject } from "@/hooks/useProject"
 import { useUi } from "@/store/ui"
 import styles from "./Shortcuts.module.sass"
+import { projectHref, type ProjectView } from "@/lib/routes"
 
 const GROUPS: { title: string; keys: [string[], string][] }[] = [
   {
@@ -48,7 +49,7 @@ const GROUPS: { title: string; keys: [string[], string][] }[] = [
   },
 ]
 
-const GO: Record<string, string> = { b: "board", l: "backlog", r: "reports", s: "settings" }
+const GO: Record<string, ProjectView> = { b: "board", l: "backlog", r: "reports", s: "settings" }
 
 /** Global keyboard shortcuts and the "?" help dialog */
 const Shortcuts = () => {
@@ -73,7 +74,7 @@ const Shortcuts = () => {
       if (Date.now() - pendingG.current < 1200) {
         pendingG.current = 0
         if (key === "p") router.push("/projects")
-        else if (GO[key] && project) router.push(`/projects/${project.key}/${GO[key]}`)
+        else if (GO[key] && project) router.push(projectHref(project.key, GO[key]))
         return
       }
       if (key === "g") pendingG.current = Date.now()
