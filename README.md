@@ -102,7 +102,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 src/
-  app/            Routes: /projects, /projects/[key]/{board,backlog,reports,settings}
+  app/            Routes: /projects, and /board, /backlog, /reports, /settings with ?project=KEY
   views/          One folder per page (Board, Backlog, Reports, Settings, Projects)
   components/     Issue dialog, create dialog, command palette, shortcuts, filters, Markdown, UI kit
   layout/         App shell, sidebar and top bar
