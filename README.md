@@ -4,6 +4,8 @@
 
 **A Jira-style Scrum board: sprints, backlog, issues and reports, in the browser.**
 
+**[▶ Open the live demo](https://scrumify-uo6d.onrender.com)**
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
